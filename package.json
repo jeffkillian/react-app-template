@@ -1,0 +1,38 @@
+{
+  "name": "react-app-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/js/app.jsx",
+  "scripts": {
+    "start": "npm run build:css && concurrently --kill-others \"npm run server\" \"npm run watch:js\" \"npm run watch:css\"",
+    "build:css": "gulp build-less",
+    "server": "http-server -p 9000",
+    "watch:js": "webpack --watch",
+    "watch:css": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffkillian/react-app-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffkillian/react-app-template/issues"
+  },
+  "homepage": "https://github.com/jeffkillian/react-app-template#readme",
+  "dependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "browser-sync": "^2.26.3",
+    "concurrently": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-less": "^4.0.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  }
+}
