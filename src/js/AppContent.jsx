@@ -7,7 +7,7 @@ import { observer } from "mobx-react"
 class AppContent extends React.Component {
 
   constructor(options){
-    super()
+    super(options)
     // this.state = {
     //  value:4
     // }
@@ -15,12 +15,17 @@ class AppContent extends React.Component {
 
   render(){
     return (
-      <div className="title">
-       Hello I have a value of {this.props.store.number}
-        <div class="row">
-        <div class="col-sm-4">hello</div>
-        <div class="col-sm-4">there</div>
-        <div class="col-sm-4">world</div>
+      <div >
+       <div className="title">Hello world</div>
+        <div className="row">
+        <div className="col-sm-4">
+          <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.incrementValue}>Increment Value</button>
+          </div>
+        <div className="col-sm-4">I have a value of {this.props.store.number}</div>
+        <div className="col-sm-4">
+          <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getRandomNumber}>Get random number from server</button>
+          The last random number was: {this.props.store.randomNumber}
+        </div>
       </div>
       </div>
     )

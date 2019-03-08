@@ -26,6 +26,8 @@
     "@babel/plugin-proposal-decorators": "^7.3.0",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "axios": "^0.18.0",
+    "babel": "^6.23.0",
     "babel-loader": "^8.0.5",
     "browser-sync": "^2.26.3",
     "concurrently": "^4.1.0",
