@@ -5,6 +5,7 @@ import React from "react"
 class AppContent extends React.Component {
 
   constructor(options){
+    super()
     this.state = {
      value:4
     }
