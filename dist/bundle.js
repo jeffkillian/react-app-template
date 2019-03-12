@@ -32630,25 +32630,13 @@ function (_React$Component) {
   _createClass(AppContent, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "title"
-      }, "Hello world"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm-4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: " m-2 btn btn-primary",
-        onClick: this.props.store.incrementValue
-      }, "Increment Value")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm-4"
-      }, "I have a value of ", this.props.store.number), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm-4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: " m-2 btn btn-primary",
-        onClick: this.props.store.getRandomNumber
-      }, "Get random number from server"), "The last random number was: ", this.props.store.randomNumber)));
+      var store = this.props.store;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ml-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Phone Number:  "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: store.displayedNumber,
+        onChange: store.onChange
+      }));
     }
   }]);
 
@@ -32674,7 +32662,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var mobx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mobx */ "./node_modules/mobx/lib/mobx.module.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+var _class, _descriptor, _descriptor2, _temp;
 
 function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -32690,74 +32678,86 @@ function _initializerWarningHelper(descriptor, context) { throw new Error('Decor
 
 
 
+ //Disallow invalid characters
+//Formatting characters are only inserted preceding digits
+//Deleting a digit also removes any immediately preceding formatting characters
+//Pasting a full/partial number into the input should work
 
 var AppStore = (_class = (_temp =
 /*#__PURE__*/
 function () {
   function AppStore() {
-    var _this = this;
-
     _classCallCheck(this, AppStore);
 
-    _initializerDefineProperty(this, "number", _descriptor, this);
+    _initializerDefineProperty(this, "inputNumber", _descriptor, this);
 
-    _initializerDefineProperty(this, "randomNumber", _descriptor2, this);
+    _initializerDefineProperty(this, "onChange", _descriptor2, this);
 
-    this.incrementValue = function () {
-      _this.changeNumber(_this.number + 1);
-    };
+    this.inputNumber = "";
+  } // have some rules in here to make it appear right
 
-    _initializerDefineProperty(this, "changeNumber", _descriptor3, this);
-
-    this.getRandomNumber = function () {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://localhost:9001/randomNumber").then(_this.setRandomNumber);
-    };
-
-    _initializerDefineProperty(this, "setRandomNumber", _descriptor4, this);
-  }
 
   _createClass(AppStore, [{
-    key: "isPositive",
+    key: "displayedNumber",
     get: function get() {
-      return this.simpleVariable > 0;
-    }
+      var displayedNumber = this.inputNumber;
+      var firstThreeChars = this.inputNumber.substring(0, 3);
+      if (this.inputNumber.length > 0) displayedNumber = "(".concat(firstThreeChars);
+
+      if (this.inputNumber.length > 3) {
+        displayedNumber = "".concat(displayedNumber, ")");
+        var middleSection = this.inputNumber.substring(3, 6); // at this point displayedNumber is (888) 
+
+        displayedNumber = "".concat(displayedNumber, " ").concat(middleSection); // if we have a inputnumberlength of at least 7, add in the dash
+
+        if (this.inputNumber.length > 6) {
+          // let's add in a dash
+          displayedNumber = "".concat(displayedNumber, "-"); // get the substring of the last characters
+          // add them on to the end
+
+          var endingChars = this.inputNumber.substring(6, 10);
+          displayedNumber = "".concat(displayedNumber).concat(endingChars);
+        }
+      }
+
+      return displayedNumber;
+    } // @observable number = 10
+    // @observable randomNumber = ""
+    // @computed get isPositive (){
+    //     return this.simpleVariable > 0
+    // }
+    // incrementValue = ()=>{
+    //   this.changeNumber(this.number+1)
+    // }
+    // @action changeNumber = (newNumber)=>{
+    //     this.number = newNumber
+    // }
+    // getRandomNumber = ()=>{
+    //   axios.get("http://localhost:9001/randomNumber").then(this.setRandomNumber) 
+    // }
+    // @action setRandomNumber = (number)=>{
+    //   this.randomNumber = number.data.number
+    // }
+
   }]);
 
   return AppStore;
-}(), _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "number", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
+}(), _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "inputNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _applyDecoratedDescriptor(_class.prototype, "displayedNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["computed"]], Object.getOwnPropertyDescriptor(_class.prototype, "displayedNumber"), _class.prototype), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "onChange", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: function initializer() {
-    return 10;
-  }
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "randomNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  initializer: function initializer() {
-    return "";
-  }
-}), _applyDecoratedDescriptor(_class.prototype, "isPositive", [mobx__WEBPACK_IMPORTED_MODULE_1__["computed"]], Object.getOwnPropertyDescriptor(_class.prototype, "isPositive"), _class.prototype), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "changeNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  initializer: function initializer() {
-    var _this2 = this;
+    var _this = this;
 
-    return function (newNumber) {
-      _this2.number = newNumber;
-    };
-  }
-}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "setRandomNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  initializer: function initializer() {
-    var _this3 = this;
+    return function (e) {
+      var newVal = e.target.value; // filter out all non numeric
 
-    return function (number) {
-      _this3.randomNumber = number.data.number;
+      _this.inputNumber = newVal.replace(/\D/g, '');
     };
   }
 })), _class);
