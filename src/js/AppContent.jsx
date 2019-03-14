@@ -27,6 +27,11 @@ class AppContent extends React.Component {
           The last random number was: {this.props.store.randomNumber}
         </div>
       </div>
+      <div className="col-sm-4">
+          <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getBook}>Get First Book Title</button>
+          The title of the first book is: {this.props.store.firstBookTitle}
+        </div>
+        <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.changeTitle}>Change title of first book</button>
       </div>
     )
   }
