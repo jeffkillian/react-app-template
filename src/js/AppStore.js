@@ -12,7 +12,9 @@ export default class AppStore {
   }
 
   getMovies = ()=>{
-   this.api.getMovies().then(this.handleMoviesResponse)
+    let sortOrder = "desc"
+    if (this.movieIdInQuestion>3) sortOrder = "asc"
+   this.api.getMovies(sortOrder).then(this.handleMoviesResponse)
   }
 
   // get

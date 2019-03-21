@@ -5,12 +5,12 @@ export default class Api {
   constructor(){
     this.prefix = "http://localhost:9001"
   }
-  getMovies = () => {
-    return axios.get(`${this.prefix}/movies`)
+  getMovies = (sortOrd) => {
+    return axios.get(`${this.prefix}/movies?sort=${sortOrd}`)
   }
 
   getMovie = (id) => {
-    let getMovieUrl = `${this.prefix}/movie/${id}`
+    let getMovieUrl = `${this.prefix}/movies/${id}`
     return axios.get(getMovieUrl)
   }
 
