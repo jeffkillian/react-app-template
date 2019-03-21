@@ -32622,9 +32622,7 @@ function (_React$Component) {
   function AppContent(options) {
     _classCallCheck(this, AppContent);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(AppContent).call(this, options)); // this.state = {
-    //  value:4
-    // }
+    return _possibleConstructorReturn(this, _getPrototypeOf(AppContent).call(this, options));
   }
 
   _createClass(AppContent, [{
@@ -32633,27 +32631,84 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "title"
       }, "Hello world"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mt-2"
+      }, "Movie ID we will do something to: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: this.props.store.movieIdInQuestion,
+        onChange: this.props.store.changeMovieVal
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm-4"
+        className: "col-sm-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: " m-2 btn btn-primary",
-        onClick: this.props.store.incrementValue
-      }, "Increment Value")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm-4"
-      }, "I have a value of ", this.props.store.number), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-sm-4"
+        onClick: this.props.store.getMovie
+      }, "Get Movie"), "The last movie you got was: ", this.props.store.retrievedMovie.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: " m-2 btn btn-primary",
-        onClick: this.props.store.getRandomNumber
-      }, "Get random number from server"), "The last random number was: ", this.props.store.randomNumber)));
+        onClick: this.props.store.addMovie
+      }, "Add a new movie"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: " m-2 btn btn-primary",
+        onClick: this.props.store.modifyRating
+      }, "Modify Movie Rating")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: " m-2 btn btn-primary",
+        onClick: this.props.store.getMovies
+      }, "Get Movies"), this.props.store.allMovies.map(function (movie, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Movie, {
+          movie: movie,
+          key: index
+        });
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: " m-2 btn btn-primary",
+        onClick: this.props.store.deleteMovie
+      }, "Delete"))));
     }
   }]);
 
   return AppContent;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component)) || _class;
+
+var Movie =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inherits(Movie, _React$Component2);
+
+  function Movie() {
+    _classCallCheck(this, Movie);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Movie).apply(this, arguments));
+  }
+
+  _createClass(Movie, [{
+    key: "render",
+    value: function render() {
+      var movie = this.props.movie;
+      var title = movie.title;
+      var year = movie.releasedate.substring(0, 4);
+      var rating = movie.rating;
+      var runtime = movie.length;
+      var id = movie.id;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, id, ". ", title, "(", year, ") - Rating: ", rating, ". Runtime: ", runtime);
+    }
+  }]);
+
+  return Movie;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (AppContent);
 
@@ -32674,93 +32729,188 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var mobx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mobx */ "./node_modules/mobx/lib/mobx.module.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api.js */ "./src/js/api.js");
+var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
 
 function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object['ke' + 'ys'](descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object['define' + 'Property'](target, property, desc); desc = null; } return desc; }
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
 
 function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and set to use loose mode. ' + 'To use proposal-class-properties in spec mode with decorators, wait for ' + 'the next major version of decorators in stage 2.'); }
 
 
 
 
-var AppStore = (_class = (_temp =
-/*#__PURE__*/
-function () {
-  function AppStore() {
-    var _this = this;
 
-    _classCallCheck(this, AppStore);
+var AppStore = (_class = (_temp = function AppStore() {
+  var _this = this;
 
-    _initializerDefineProperty(this, "number", _descriptor, this);
+  _classCallCheck(this, AppStore);
 
-    _initializerDefineProperty(this, "randomNumber", _descriptor2, this);
+  _initializerDefineProperty(this, "retrievedMovie", _descriptor, this);
 
-    this.incrementValue = function () {
-      _this.changeNumber(_this.number + 1);
+  _initializerDefineProperty(this, "allMovies", _descriptor2, this);
+
+  _initializerDefineProperty(this, "movieIdInQuestion", _descriptor3, this);
+
+  this.getMovies = function () {
+    _this.api.getMovies().then(_this.handleMoviesResponse);
+  };
+
+  this.getMovie = function () {
+    _this.api.getMovie(_this.movieIdInQuestion).then(_this.handleRetrievedMovie);
+  };
+
+  this.addMovie = function () {
+    var movieData = {
+      title: "Pirates of the Caribbean",
+      releasedate: "2003-06-23",
+      length: 123,
+      rating: 2.4
     };
 
-    _initializerDefineProperty(this, "changeNumber", _descriptor3, this);
+    _this.api.addMovie(movieData).then(function (response) {
+      console.log(response);
+    });
+  };
 
-    this.getRandomNumber = function () {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("http://localhost:9001/randomNumber").then(_this.setRandomNumber);
+  this.modifyRating = function () {
+    var movieData = {
+      id: _this.movieIdInQuestion,
+      rating: Math.random() * 10
     };
 
-    _initializerDefineProperty(this, "setRandomNumber", _descriptor4, this);
-  }
+    _this.api.editRating(movieData).then(function (response) {
+      console.log(response);
+    });
+  };
 
-  _createClass(AppStore, [{
-    key: "isPositive",
-    get: function get() {
-      return this.simpleVariable > 0;
-    }
-  }]);
+  this.deleteMovie = function () {
+    _this.api.deleteMovie(_this.movieIdInQuestion).then(function (response) {
+      console.log(response);
+    });
+  };
 
-  return AppStore;
-}(), _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "number", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
+  _initializerDefineProperty(this, "changeMovieVal", _descriptor4, this);
+
+  _initializerDefineProperty(this, "handleMoviesResponse", _descriptor5, this);
+
+  _initializerDefineProperty(this, "handleRetrievedMovie", _descriptor6, this);
+
+  this.api = new _api_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+}, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "retrievedMovie", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: function initializer() {
-    return 10;
+    return {};
   }
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "randomNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "allMovies", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: function initializer() {
-    return "";
+    return [];
   }
-}), _applyDecoratedDescriptor(_class.prototype, "isPositive", [mobx__WEBPACK_IMPORTED_MODULE_1__["computed"]], Object.getOwnPropertyDescriptor(_class.prototype, "isPositive"), _class.prototype), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "changeNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "movieIdInQuestion", [mobx__WEBPACK_IMPORTED_MODULE_1__["observable"]], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function initializer() {
+    return "2";
+  }
+}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "changeMovieVal", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: function initializer() {
     var _this2 = this;
 
-    return function (newNumber) {
-      _this2.number = newNumber;
+    return function (e) {
+      _this2.movieIdInQuestion = e.target.value;
     };
   }
-}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "setRandomNumber", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "handleMoviesResponse", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: function initializer() {
     var _this3 = this;
 
-    return function (number) {
-      _this3.randomNumber = number.data.number;
+    return function (response) {
+      _this3.allMovies = response.data.movies;
+    };
+  }
+}), _descriptor6 = _applyDecoratedDescriptor(_class.prototype, "handleRetrievedMovie", [mobx__WEBPACK_IMPORTED_MODULE_1__["action"]], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function initializer() {
+    var _this4 = this;
+
+    return function (response) {
+      _this4.retrievedMovie = response.data.movie;
     };
   }
 })), _class);
+
+
+/***/ }),
+
+/***/ "./src/js/api.js":
+/*!***********************!*\
+  !*** ./src/js/api.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Api; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Api = function Api() {
+  var _this = this;
+
+  _classCallCheck(this, Api);
+
+  this.getMovies = function () {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_this.prefix, "/movies"));
+  };
+
+  this.getMovie = function (id) {
+    var getMovieUrl = "".concat(_this.prefix, "/movie/").concat(id);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(getMovieUrl);
+  };
+
+  this.addMovie = function (movieData) {
+    var postUrl = "".concat(_this.prefix, "/movie");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(postUrl, movieData);
+  };
+
+  this.editRating = function (_ref) {
+    var movieId = _ref.id,
+        newRating = _ref.rating;
+    var putUrl = "".concat(_this.prefix, "/movie/").concat(movieId);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(putUrl, {
+      newRating: newRating
+    });
+  };
+
+  this.deleteMovie = function (movieId) {
+    var deleteUrl = "".concat(_this.prefix, "/movie/").concat(movieId);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete(deleteUrl);
+  };
+
+  this.prefix = "http://localhost:9001";
+};
+
 
 
 /***/ }),

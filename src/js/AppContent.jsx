@@ -8,32 +8,63 @@ class AppContent extends React.Component {
 
   constructor(options){
     super(options)
-    // this.state = {
-    //  value:4
-    // }
   }
 
   render(){
     return (
       <div >
-       <div className="title">Hello world</div>
+        <div className="title">Hello world</div>
+        <div className="mt-2" >
+         Movie ID we will do something to: <input value = {this.props.store.movieIdInQuestion} onChange={this.props.store.changeMovieVal} />
+        </div>
         <div className="row">
-        <div className="col-sm-4">
-          <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.incrementValue}>Increment Value</button>
+         
+          <div className="col-sm-6">
+            
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getMovie}>Get Movie</button>
+            
+            The last movie you got was: {this.props.store.retrievedMovie.title}
           </div>
-        <div className="col-sm-4">I have a value of {this.props.store.number}</div>
-        <div className="col-sm-4">
-          <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getRandomNumber}>Get random number from server</button>
-          The last random number was: {this.props.store.randomNumber}
+          <div className="col-sm-6">
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.addMovie}>Add a new movie</button>
+          </div>
         </div>
-      </div>
-      <div className="col-sm-4">
-          <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getBook}>Get First Book Title</button>
-          The title of the first book is: {this.props.store.firstBookTitle}
+        <div className= "row">
+
+          <div className="col-sm-3">
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.modifyRating}>Modify Movie Rating</button>
+          </div>
+          <div className="col-sm-6">
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getMovies}>Get Movies</button>
+            {this.props.store.allMovies.map((movie, index) => {
+              return <Movie movie={movie} key={index}  />
+            })}
+          </div>
         </div>
-        <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.changeTitle}>Change title of first book</button>
+        <div className= "row">
+          <div className="col-sm-3">
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.deleteMovie}>Delete</button>
+          </div>
+        </div>
       </div>
     )
+  }
+  
+}
+
+
+class Movie extends React.Component {
+
+  render(){
+    let movie = this.props.movie
+    let title = movie.title
+    let year = movie.releasedate.substring(0,4)
+    let rating = movie.rating
+    let runtime = movie.length
+    let id = movie.id
+    return (
+      <div>{id}. {title}({year}) - Rating: {rating}. Runtime: {runtime}</div>
+      )
   }
   
 }

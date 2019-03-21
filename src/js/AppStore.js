@@ -1,50 +1,68 @@
 import React from "react"
 import { observable, action, computed } from "mobx"
 import axios from "axios"
+import Api from "./api.js"
 export default class AppStore {
    
-  @observable number = 10
-  @observable randomNumber = ""
-  @observable firstBookTitle
+  @observable retrievedMovie = {}
+  @observable allMovies = []
+  @observable movieIdInQuestion = "2"
+  constructor(){
+    this.api = new Api()
+  }
+
+  getMovies = ()=>{
+   this.api.getMovies().then(this.handleMoviesResponse)
+  }
+
+  // get
+  getMovie = () => {
+    this.api.getMovie(this.movieIdInQuestion).then(this.handleRetrievedMovie)
   
-  @computed get isPositive (){
-      return this.simpleVariable > 0
-  }
-  incrementValue = ()=>{
-    this.changeNumber(this.number+1)
   }
 
-  @action changeNumber = (newNumber)=>{
-      this.number = newNumber
-  }
-
-  getRandomNumber = ()=>{
-    axios.get("http://localhost:9001/randomNumber").then(this.setRandomNumber) 
-  }
-
-  // gets the first book title
-  getBook = ()=>{
-    axios.get("http://localhost:9001/book/0/title").then(this.setBookTitle) 
-  }
-
-  // change title of first book
-  changeTitle =() => {
-    let newTitle = Math.random().toString(36).substring(7);
-    axios.patch("http://localhost:9001/book/0/title",{
-      title: newTitle
-    }).then(response => {
-      
+  // post
+  addMovie = () => {
+    let movieData = {
+      title: "Pirates of the Caribbean",
+      releasedate:"2003-06-23",
+      length:123,
+      rating: 2.4
+    }
+    this.api.addMovie(movieData).then(response => {
+      console.log(response)
     })
-
   }
 
-  @action setBookTitle = (response) => {
-    this.firstBookTitle = response.data
+  // put
+  modifyRating = () => {
+    let movieData = {
+      id: this.movieIdInQuestion,
+      rating: Math.random() * 10
+    }
+    this.api.editRating(movieData).then(response => {
+      console.log(response)
+    })
   }
 
-  @action setRandomNumber = (number)=>{
-    this.randomNumber = number.data.number
+  // delete
+  deleteMovie = () => {
+    this.api.deleteMovie(this.movieIdInQuestion).then(response => {
+      console.log(response)
+    })
+    
   }
 
+  @action changeMovieVal = (e)=>{
+    this.movieIdInQuestion = e.target.value
+  }
+
+  @action handleMoviesResponse = (response) => {
+    this.allMovies = response.data.movies
+  }
+
+  @action handleRetrievedMovie = (response) => {
+    this.retrievedMovie = response.data.movie
+  }
 
 }
