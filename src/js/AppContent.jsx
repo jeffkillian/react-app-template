@@ -21,9 +21,8 @@ class AppContent extends React.Component {
          
           <div className="col-sm-6">
             
-            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getMovie}>Get Movie</button>
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getCrimeRates}> Console.log the crime rates</button>
             
-            The last movie you got was: {this.props.store.retrievedMovie.title}
           </div>
           <div className="col-sm-6">
             <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.addMovie}>Add a new movie</button>
@@ -35,7 +34,7 @@ class AppContent extends React.Component {
             <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.modifyRating}>Modify Movie Rating</button>
           </div>
           <div className="col-sm-6">
-            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getMovies}>Get Movies</button>
+            <button type="button" className=" m-2 btn btn-primary" onClick={this.props.store.getMovies}>Get Movies</button> 
             {this.props.store.allMovies.map((movie, index) => {
               return <Movie movie={movie} key={index}  />
             })}

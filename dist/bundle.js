@@ -32642,8 +32642,8 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: " m-2 btn btn-primary",
-        onClick: this.props.store.getMovie
-      }, "Get Movie"), "The last movie you got was: ", this.props.store.retrievedMovie.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.props.store.getCrimeRates
+      }, " Console.log the crime rates")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-sm-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
@@ -32756,7 +32756,16 @@ var AppStore = (_class = (_temp = function AppStore() {
   _initializerDefineProperty(this, "movieIdInQuestion", _descriptor3, this);
 
   this.getMovies = function () {
-    _this.api.getMovies().then(_this.handleMoviesResponse);
+    var sortOrder = "desc";
+    if (_this.movieIdInQuestion > 3) sortOrder = "asc";
+
+    _this.api.getMovies(sortOrder).then(_this.handleMoviesResponse);
+  };
+
+  this.getCrimeRates = function () {
+    _this.api.getCrimeRates().then(function (response) {
+      console.log(response);
+    });
   };
 
   this.getMovie = function () {
@@ -32880,12 +32889,17 @@ var Api = function Api() {
 
   _classCallCheck(this, Api);
 
-  this.getMovies = function () {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_this.prefix, "/movies"));
+  this.getMovies = function (sortOrd) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_this.prefix, "/movies?sort=").concat(sortOrd));
+  };
+
+  this.getCrimeRates = function () {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_this.prefix, "/crimeRates "));
   };
 
   this.getMovie = function (id) {
-    var getMovieUrl = "".concat(_this.prefix, "/movie/").concat(id);
+    var getMovieUrl = "".concat(_this.prefix, "/movies/").concat(id);
+    console.log("url is ".concat(getMovieUrl));
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(getMovieUrl);
   };
 

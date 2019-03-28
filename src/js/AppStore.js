@@ -17,6 +17,12 @@ export default class AppStore {
    this.api.getMovies(sortOrder).then(this.handleMoviesResponse)
   }
 
+  getCrimeRates = () => {
+    this.api.getCrimeRates().then(response => {
+      console.log(response)
+    })
+  }
+
   // get
   getMovie = () => {
     this.api.getMovie(this.movieIdInQuestion).then(this.handleRetrievedMovie)

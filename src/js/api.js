@@ -8,9 +8,13 @@ export default class Api {
   getMovies = (sortOrd) => {
     return axios.get(`${this.prefix}/movies?sort=${sortOrd}`)
   }
+  getCrimeRates = () => {
+    return axios.get(`${this.prefix}/crimeRates `)
+  }
 
   getMovie = (id) => {
     let getMovieUrl = `${this.prefix}/movies/${id}`
+    console.log(`url is ${getMovieUrl}`)
     return axios.get(getMovieUrl)
   }
 
