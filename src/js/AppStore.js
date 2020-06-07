@@ -38,6 +38,12 @@ export default class AppStore {
 
   }
 
+  createGif = () => {
+    axios.put("http://localhost:9001/create-gif").then(response => {
+      console.log(response);
+    })
+  }
+
   @action setBookTitle = (response) => {
     this.firstBookTitle = response.data
   }
